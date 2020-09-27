@@ -35,12 +35,12 @@ abstract class Enum
             if (!empty($constants)) {
                 $implodedConstants = implode(PHP_EOL, $constants);
                 $message = <<< EOD
-                Invalid ENUM option for class $class.
-                Given: $value. Expected one of:
+                Invalid ENUM option for class {$class}.
+                Given: {$value}. Expected one of:
                 $implodedConstants
                 EOD;
             } else {
-                $message = "Invalid ENUM: missing options. Class: $class.";
+                $message = "Invalid ENUM: missing options. Class: {$class}.";
             }
             throw new EnumException($message);
         }
