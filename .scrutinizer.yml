@@ -26,6 +26,4 @@ checks:
         fix_doc_comments: true
 
 tools:
-    external_code_coverage:
-        timeout: 600
-        runs: 3
+    external_code_coverage: true
