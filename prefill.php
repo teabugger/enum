@@ -92,13 +92,26 @@ do {
 } while (($modify = strtolower(read_from_console('Modify files with these values? [y/N/q] '))) != 'y');
 echo "\n";
 
-$files = array_merge(
-    glob(__DIR__ . '/*.md'),
-    glob(__DIR__ . '/*.xml.dist'),
-    glob(__DIR__ . '/composer.json'),
-    glob(__DIR__ . '/src/*.php'),
-    glob(__DIR__ . '/tests/*.php')
-);
+$filterPaths = [
+    [
+        __DIR__ . '/*.md',
+        __DIR__ . '/*.xml.dist',
+        __DIR__ . '/composer.json',
+        __DIR__ . '/src/*.php',
+        __DIR__ . '/tests/*.php',
+    ]
+];
+$filters = [];
+
+foreach ($filterPaths as $filterPath) {
+    $path = glob($filterPath);
+    if ($path !== false) {
+        $filters[] = $path;
+    }
+}
+
+$filters = array_merge(...$filters);
+
 foreach ($files as $f) {
     $contents = file_get_contents($f);
     foreach ($replacements as $str => $func) {
